@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# 배포 URL이 정해지면 아래 형식으로 실제 사이트맵 절대 주소를 추가하세요.
-# Sitemap: https://example.com/sitemap.xml
+Sitemap: https://projector-calculator-e9t.pages.dev/sitemap.xml

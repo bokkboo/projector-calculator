@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 실제 배포 URL이 정해진 뒤 <url><loc>...</loc></url> 항목을 추가합니다. -->
+  <url>
+    <loc>https://projector-calculator-e9t.pages.dev/</loc>
+  </url>
 </urlset>

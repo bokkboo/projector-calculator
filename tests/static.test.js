@@ -33,8 +33,8 @@ test("index.html은 H1 하나와 필수 SEO 메타데이터를 가진다", () =>
   assert.match(html, /<meta name="description"/i);
   assert.match(html, /<meta property="og:title"/i);
   assert.match(html, /<meta property="og:description"/i);
-  assert.doesNotMatch(html, /rel="canonical"/i);
-  assert.doesNotMatch(html, /property="og:url"/i);
+  assert.match(html, /rel="canonical" href="https:\/\/projector-calculator-e9t\.pages\.dev\/"/i);
+  assert.match(html, /property="og:url" content="https:\/\/projector-calculator-e9t\.pages\.dev\/"/i);
 });
 
 test("두 계산 모드와 접근성 연결 정보가 존재한다", () => {
@@ -46,7 +46,8 @@ test("두 계산 모드와 접근성 연결 정보가 존재한다", () => {
 });
 
 test("HTML이 외부 스크립트, 스타일, 이미지 요청을 만들지 않는다", () => {
-  assert.doesNotMatch(html, /<(?:script|link|img)[^>]+(?:src|href)=["']https?:\/\//i);
+  assert.doesNotMatch(html, /<(?:script|img)[^>]+src=["']https?:\/\//i);
+  assert.doesNotMatch(html, /<link[^>]+rel=["']stylesheet["'][^>]+href=["']https?:\/\//i);
   assert.match(html, /href="style\.css"/i);
   assert.match(html, /src="script\.js"/i);
 });
