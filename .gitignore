@@ -1,0 +1,9 @@
+# 운영체제 및 편집기
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 로컬 서버 및 테스트 산출물
+*.log
+coverage/

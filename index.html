@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>빔프로젝터 투사거리·화면 크기 계산기 | 투사비 쉽게 계산하기</title>
+  <meta name="description" content="방 크기와 원하는 인치로 필요한 프로젝터 투사비를 계산하거나, 투사비로 100인치 등 원하는 화면의 최소·최대 설치거리를 확인하세요.">
+  <meta name="theme-color" content="#122235">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:title" content="빔프로젝터 투사거리·화면 크기 계산기">
+  <meta property="og:description" content="거리, 화면 크기, 투사비의 관계를 초보자도 쉽게 계산하고 이해할 수 있습니다.">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#calculator">계산기로 바로가기</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./index.html" aria-label="빔프로젝터 계산기 홈">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Projector<span class="brand-accent">Lab</span></span>
+      </a>
+      <span class="header-note">설치 전 빠른 사양 확인</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">ROOM → SCREEN → RATIO</p>
+          <h1>내 방에 맞는<br>빔프로젝터 거리 계산</h1>
+          <p class="hero-lead">줄자를 한 번 재고 원하는 화면 크기를 입력하세요. 필요한 투사비나 설치거리를 바로 확인할 수 있습니다.</p>
+          <ul class="trust-list" aria-label="계산기 특징">
+            <li>회원가입 없음</li>
+            <li>제조사 무관</li>
+            <li>입력 즉시 계산</li>
+          </ul>
+        </div>
+
+        <div class="hero-diagram" aria-label="프로젝터 렌즈에서 스크린까지의 거리를 재는 방법">
+          <div class="diagram-room">
+            <div class="diagram-projector">
+              <span class="projector-lens" aria-hidden="true"></span>
+              <span class="projector-body" aria-hidden="true"></span>
+            </div>
+            <div class="light-beam" aria-hidden="true"></div>
+            <div class="diagram-screen" aria-hidden="true">
+              <span></span>
+            </div>
+            <div class="measure-line" aria-hidden="true">
+              <span class="measure-start"></span>
+              <span class="measure-end"></span>
+              <strong>렌즈부터 스크린까지</strong>
+            </div>
+          </div>
+          <p><strong>측정 기준</strong>은 기기 앞면이 아니라 렌즈 표면입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="calculator-section" id="calculator" aria-labelledby="calculator-title">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="section-kicker">QUICK CALCULATOR</p>
+          <h2 id="calculator-title">무엇을 알고 싶으세요?</h2>
+          <p>상황에 맞는 계산 모드를 선택하세요. 숫자를 바꾸면 결과도 즉시 바뀝니다.</p>
+        </div>
+
+        <div class="calculator-card">
+          <div class="mode-tabs" role="tablist" aria-label="계산 모드">
+            <button class="mode-tab is-active" id="tab-room" type="button" role="tab" aria-selected="true" aria-controls="panel-room" tabindex="0">
+              <span class="tab-number" aria-hidden="true">01</span>
+              <span><strong>방 기준</strong><small>필요 투사비 찾기</small></span>
+            </button>
+            <button class="mode-tab" id="tab-projector" type="button" role="tab" aria-selected="false" aria-controls="panel-projector" tabindex="-1">
+              <span class="tab-number" aria-hidden="true">02</span>
+              <span><strong>프로젝터 기준</strong><small>설치거리 찾기</small></span>
+            </button>
+          </div>
+
+          <section class="mode-panel" id="panel-room" role="tabpanel" aria-labelledby="tab-room">
+            <div class="mode-intro">
+              <div>
+                <p class="mode-label">MODE A</p>
+                <h3>내 방에 맞는 투사비 찾기</h3>
+              </div>
+              <p>설치할 위치의 거리와 원하는 화면 크기로 제품 사양의 기준을 계산합니다.</p>
+            </div>
+
+            <div class="calculator-layout">
+              <form class="input-panel" id="room-form" novalidate>
+                <fieldset>
+                  <legend class="sr-only">방 기준 계산 입력</legend>
+
+                  <div class="field-group">
+                    <label for="room-distance">확보 가능한 거리</label>
+                    <div class="input-with-unit">
+                      <input id="room-distance" name="distance" type="number" inputmode="decimal" min="0.1" max="30" step="0.01" value="2.7" aria-describedby="room-distance-help room-distance-error">
+                      <span aria-hidden="true">m</span>
+                    </div>
+                    <p class="field-help" id="room-distance-help">프로젝터 렌즈에서 스크린 면까지의 거리</p>
+                    <p class="field-error" id="room-distance-error" aria-live="polite"></p>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="room-size">원하는 화면 크기</label>
+                    <div class="input-with-unit">
+                      <input id="room-size" name="screenSize" type="number" inputmode="decimal" min="10" max="500" step="1" value="100" aria-describedby="room-size-help room-size-error">
+                      <span aria-hidden="true">인치</span>
+                    </div>
+                    <p class="field-help" id="room-size-help">화면의 대각선 길이 기준</p>
+                    <p class="field-error" id="room-size-error" aria-live="polite"></p>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="room-ratio">화면 비율</label>
+                    <div class="select-wrap">
+                      <select id="room-ratio" name="aspectRatio">
+                        <option value="16:9" selected>16:9 — 일반 영상·OTT</option>
+                        <option value="16:10">16:10 — 업무·교육</option>
+                        <option value="4:3">4:3 — 구형 영상·문서</option>
+                      </select>
+                    </div>
+                    <p class="field-help">프로젝터의 기본 해상도 비율을 확인하세요.</p>
+                  </div>
+                </fieldset>
+              </form>
+
+              <div class="result-panel" id="room-result" aria-live="polite" aria-atomic="true">
+                <p class="result-eyebrow">계산 결과</p>
+                <div class="result-error" id="room-result-error" hidden>입력값을 확인하면 결과가 여기에 표시됩니다.</div>
+                <div class="result-content" id="room-result-content">
+                  <div class="primary-result">
+                    <span>필요한 최대 투사비</span>
+                    <strong id="room-throw-ratio">1.22 이하</strong>
+                    <p>제품의 투사비 최솟값이 이 값 이하인지 확인하세요.</p>
+                  </div>
+                  <dl class="result-stats">
+                    <div>
+                      <dt>화면 가로</dt>
+                      <dd id="room-width">2.214 m</dd>
+                    </div>
+                    <div>
+                      <dt>화면 세로</dt>
+                      <dd id="room-height">1.245 m</dd>
+                    </div>
+                  </dl>
+                  <div class="distance-visual" aria-hidden="true">
+                    <div class="visual-projector"><i></i></div>
+                    <div class="visual-track">
+                      <span></span>
+                      <strong id="room-distance-visual">2.70 m 확보</strong>
+                    </div>
+                    <div class="visual-screen" id="room-screen-visual"></div>
+                  </div>
+                  <p class="result-note"><span aria-hidden="true">!</span> 설치 가능 확정이 아닌 제품 탐색용 참고값입니다.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mode-panel" id="panel-projector" role="tabpanel" aria-labelledby="tab-projector" hidden>
+            <div class="mode-intro">
+              <div>
+                <p class="mode-label">MODE B</p>
+                <h3>내 프로젝터의 설치거리 찾기</h3>
+              </div>
+              <p>제품 사양표의 투사비 범위로 원하는 화면에 필요한 거리를 계산합니다.</p>
+            </div>
+
+            <div class="calculator-layout">
+              <form class="input-panel" id="projector-form" novalidate>
+                <fieldset>
+                  <legend class="sr-only">프로젝터 기준 계산 입력</legend>
+
+                  <div class="split-fields">
+                    <div class="field-group">
+                      <label for="throw-min">최소 투사비</label>
+                      <input id="throw-min" name="throwMin" type="number" inputmode="decimal" min="0.05" max="10" step="0.01" value="1.2" aria-describedby="throw-min-help throw-min-error">
+                      <p class="field-help" id="throw-min-help">사양표의 앞쪽 값</p>
+                      <p class="field-error" id="throw-min-error" aria-live="polite"></p>
+                    </div>
+                    <div class="field-group">
+                      <label for="throw-max">최대 투사비</label>
+                      <input id="throw-max" name="throwMax" type="number" inputmode="decimal" min="0.05" max="10" step="0.01" value="1.5" aria-describedby="throw-max-help throw-max-error">
+                      <p class="field-help" id="throw-max-help">줌이 없으면 같은 값</p>
+                      <p class="field-error" id="throw-max-error" aria-live="polite"></p>
+                    </div>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="projector-size">원하는 화면 크기</label>
+                    <div class="input-with-unit">
+                      <input id="projector-size" name="screenSize" type="number" inputmode="decimal" min="10" max="500" step="1" value="100" aria-describedby="projector-size-help projector-size-error">
+                      <span aria-hidden="true">인치</span>
+                    </div>
+                    <p class="field-help" id="projector-size-help">화면의 대각선 길이 기준</p>
+                    <p class="field-error" id="projector-size-error" aria-live="polite"></p>
+                  </div>
+
+                  <div class="field-group">
+                    <label for="projector-ratio">화면 비율</label>
+                    <div class="select-wrap">
+                      <select id="projector-ratio" name="aspectRatio">
+                        <option value="16:9" selected>16:9 — 일반 영상·OTT</option>
+                        <option value="16:10">16:10 — 업무·교육</option>
+                        <option value="4:3">4:3 — 구형 영상·문서</option>
+                      </select>
+                    </div>
+                    <p class="field-help">프로젝터의 기본 해상도 비율을 확인하세요.</p>
+                  </div>
+                </fieldset>
+              </form>
+
+              <div class="result-panel" id="projector-result" aria-live="polite" aria-atomic="true">
+                <p class="result-eyebrow">계산 결과</p>
+                <div class="result-error" id="projector-result-error" hidden>입력값을 확인하면 결과가 여기에 표시됩니다.</div>
+                <div class="result-content" id="projector-result-content">
+                  <div class="primary-result">
+                    <span>필요한 설치거리</span>
+                    <strong id="projector-distance">2.66–3.32 m</strong>
+                    <p>렌즈 표면에서 스크린 면까지의 거리입니다.</p>
+                  </div>
+                  <dl class="result-stats">
+                    <div>
+                      <dt>화면 가로</dt>
+                      <dd id="projector-width">2.214 m</dd>
+                    </div>
+                    <div>
+                      <dt>화면 세로</dt>
+                      <dd id="projector-height">1.245 m</dd>
+                    </div>
+                  </dl>
+                  <div class="distance-visual" aria-hidden="true">
+                    <div class="visual-projector"><i></i></div>
+                    <div class="visual-track">
+                      <span></span>
+                      <strong id="projector-distance-visual">2.66–3.32 m</strong>
+                    </div>
+                    <div class="visual-screen" id="projector-screen-visual"></div>
+                  </div>
+                  <p class="result-note"><span aria-hidden="true">!</span> 줌·렌즈 위치에 따라 실제 설치 범위가 달라질 수 있습니다.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="install-warning" aria-labelledby="warning-title">
+          <div class="warning-icon" aria-hidden="true">i</div>
+          <div>
+            <h3 id="warning-title">이 숫자만으로 설치 가능 여부를 확정할 수는 없습니다</h3>
+            <p>구매·설치 전 제조사의 화면 크기별 최소·최대 투사거리 표를 확인하세요. 렌즈 오프셋, 렌즈 시프트, 기기 크기, 천장 브래킷, 장애물, 초단초점 모델의 벽 간격 같은 조건도 별도로 확인해야 합니다.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="guide-section" aria-labelledby="meaning-title">
+      <div class="shell guide-grid">
+        <div class="guide-heading">
+          <p class="section-kicker">THROW RATIO 101</p>
+          <h2 id="meaning-title">투사비란 무엇인가요?</h2>
+          <p>투사비는 <strong>투사거리 ÷ 화면 가로 길이</strong>입니다. 같은 화면 크기라면 투사비가 낮을수록 스크린에 더 가까이 둘 수 있습니다.</p>
+        </div>
+        <div class="ratio-scale" aria-label="투사비가 낮을수록 짧은 거리에서 큰 화면을 만들 수 있다는 설명">
+          <div class="scale-row">
+            <span>짧은 거리</span>
+            <div class="scale-line"><i></i></div>
+            <strong>낮은 투사비</strong>
+          </div>
+          <div class="scale-row">
+            <span>긴 거리</span>
+            <div class="scale-line scale-line-long"><i></i></div>
+            <strong>높은 투사비</strong>
+          </div>
+          <p>예: 투사비 1.2는 화면 가로 1m를 만들 때 렌즈~스크린 거리가 약 1.2m라는 뜻입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="method-title">
+      <div class="shell">
+        <div class="section-heading left">
+          <p class="section-kicker">HOW IT WORKS</p>
+          <h2 id="method-title">투사거리 계산 방법</h2>
+        </div>
+        <ol class="steps">
+          <li>
+            <span>01</span>
+            <div>
+              <h3>화면 가로 길이를 구합니다</h3>
+              <p>인치는 대각선 길이입니다. 100인치 16:9 화면은 가로 약 2.214m, 세로 약 1.245m입니다.</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3>투사비를 곱합니다</h3>
+              <p>화면 가로 길이 × 투사비가 렌즈에서 스크린까지 필요한 투사거리입니다.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3>제조사 조건과 대조합니다</h3>
+              <p>계산값을 후보 제품의 공식 거리표, 렌즈 위치, 줌 범위와 함께 확인합니다.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="example-section" aria-labelledby="example-title">
+      <div class="shell example-grid">
+        <div>
+          <p class="section-kicker light">100-INCH EXAMPLE</p>
+          <h2 id="example-title">100인치 화면은 거리가 얼마나 필요할까요?</h2>
+          <p>16:9 100인치 화면의 가로 길이는 약 2.214m입니다. 여기에 투사비를 곱하면 필요한 거리를 빠르게 비교할 수 있습니다.</p>
+        </div>
+        <div class="example-table-wrap">
+          <table>
+            <caption class="sr-only">16대9 100인치 화면의 투사비별 예상 거리</caption>
+            <thead>
+              <tr>
+                <th scope="col">투사비</th>
+                <th scope="col">예상 거리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>0.8</td><td>약 1.77m</td></tr>
+              <tr class="is-highlight"><td>1.2</td><td>약 2.66m</td></tr>
+              <tr><td>1.5</td><td>약 3.32m</td></tr>
+              <tr><td>2.0</td><td>약 4.43m</td></tr>
+            </tbody>
+          </table>
+          <p>계산값은 렌즈부터 스크린까지의 이론상 거리입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-title">
+      <div class="shell faq-grid">
+        <div>
+          <p class="section-kicker">FAQ</p>
+          <h2 id="faq-title">자주 묻는 질문</h2>
+          <p>계산하기 전에 자주 헷갈리는 기준을 확인하세요.</p>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>투사거리는 프로젝터의 어디부터 재나요?</summary>
+            <p>프로젝터 본체 앞면이 아니라 렌즈 표면부터 스크린 면까지 잽니다. 기기 깊이와 케이블 공간은 별도로 확보해야 합니다.</p>
+          </details>
+          <details>
+            <summary>최소·최대 투사비가 같은 제품도 입력할 수 있나요?</summary>
+            <p>네. 줌이 없거나 고정 투사비인 모델은 두 값에 같은 숫자를 입력하면 단일 설치거리가 표시됩니다.</p>
+          </details>
+          <details>
+            <summary>계산값만 맞으면 반드시 설치할 수 있나요?</summary>
+            <p>아닙니다. 계산기는 수평 거리와 화면 크기의 관계만 다룹니다. 렌즈 오프셋, 렌즈 시프트, 천장 높이, 장애물과 제조사별 설치 제한을 함께 확인해야 합니다.</p>
+          </details>
+          <details>
+            <summary>초단초점 프로젝터도 계산할 수 있나요?</summary>
+            <p>투사비 자체의 이론 계산은 가능하지만, 초단초점 모델은 기기별 벽 간격과 스크린 호환 조건이 매우 다릅니다. 반드시 해당 모델의 설치 도면을 우선하세요.</p>
+          </details>
+          <details>
+            <summary>화면 비율을 바꾸면 왜 거리가 달라지나요?</summary>
+            <p>같은 대각선 인치라도 16:9, 16:10, 4:3은 화면 가로 길이가 다릅니다. 투사거리는 화면 가로 길이를 기준으로 계산하므로 결과도 달라집니다.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <div>
+        <span class="brand footer-brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>Projector<span class="brand-accent">Lab</span></span>
+        </span>
+        <p>복잡한 사양표를 설치에 필요한 숫자로 바꿉니다.</p>
+      </div>
+      <p class="footer-disclaimer">본 계산 결과는 참고용이며 제조사의 공식 설치 사양을 대체하지 않습니다.</p>
+    </div>
+  </footer>
+
+  <noscript>
+    <div class="noscript-notice">계산기를 사용하려면 브라우저에서 JavaScript를 활성화해 주세요. 아래 설명과 예시는 그대로 읽을 수 있습니다.</div>
+  </noscript>
+</body>
+</html>
